@@ -8,8 +8,8 @@
 /* eslint-disable react/jsx-filename-extension */
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import Rating from '../components/Rating';
-// import { Link } from "react-router-dom";
 import ErrorMessage from '../components/ErrorMessage';
 import Loading from '../components/Loading';
 import MessageBox from '../components/TextMessage';
