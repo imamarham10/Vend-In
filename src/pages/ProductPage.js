@@ -1,0 +1,204 @@
+/* eslint-disable react/jsx-no-undef */
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable no-underscore-dangle */
+/* eslint-disable no-alert */
+/* eslint-disable react/button-has-type */
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable no-nested-ternary */
+/* eslint-disable react/jsx-filename-extension */
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import Rating from '../components/Rating';
+// import { Link } from "react-router-dom";
+import ErrorMessage from '../components/ErrorMessage';
+import Loading from '../components/Loading';
+import MessageBox from '../components/TextMessage';
+import { createReview, detailsProduct } from '../actions/productActions';
+import { PRODUCT_REVIEW_CREATE_RESET } from '../constants/productConstants';
+
+function ProductPage(props) {
+    const [qty, setQty] = useState(1);
+    const dispatch = useDispatch();
+    const productId = props.match.params.id;
+    const productDetail = useSelector((state) => state.productDetail);
+    const { loading, error, product } = productDetail;
+    const userSignin = useSelector((state) => state.userSignin);
+    const { userInfo } = userSignin;
+
+    const productReviewCreate = useSelector((state) => state.productReviewCreate);
+    const {
+        loading: loadingReviewCreate,
+        error: errorReviewCreate,
+        success: successReviewCreate,
+    } = productReviewCreate;
+
+    const [rating, setRating] = useState(0);
+    const [comment, setComment] = useState('');
+
+    useEffect(() => {
+        if (successReviewCreate) {
+            window.alert('Review Submitted Successfully');
+            setRating('');
+            setComment('');
+            dispatch({ type: PRODUCT_REVIEW_CREATE_RESET });
+        }
+        dispatch(detailsProduct(productId));
+    }, [dispatch, productId, successReviewCreate]);
+
+    const addToCartHandler = () => {
+        props.history.push(`/cart/${productId}?qty=${qty}`);
+    };
+    const submitHandler = (e) => {
+        e.preventDefault();
+        if (comment && rating) {
+            dispatch(createReview(productId, { rating, comment, name: userInfo.name }));
+        } else {
+            alert('Please enter comment and rating');
+        }
+    };
+    return (
+        <div>
+            {loading ? (
+                <Loading />
+            ) : error ? (
+                <div>
+                    <h1 className="errror center">{error}</h1>
+                    <ErrorMessage className="error-404" variant="danger" />
+                </div>
+            ) : (
+                <div>
+                    <div className="row top util">
+                        {/* <div>
+              <Link to="/">Back to Home</Link>
+            </div> */}
+                        <div className="col-2">
+                            <img className="medium" src={product.image} alt={product.name} />
+                        </div>
+                        <div className="col-1">
+                            <ul>
+                                <h1> {product.name} </h1>
+                                <li>
+                                    <Rating rating={product.rating} numberOfReviews={product.numReviews} />
+                                </li>
+                                <li>Price : ${product.price}</li>
+                                <li>
+                                    Description : <span>{product.description}</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div className="col-1">
+                            <div className="card card-body product-page">
+                                <ul>
+                                    <li>
+                                        <div className="row">
+                                            <div>Price</div>
+                                            <div className="price">${product.price}</div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div className="row">
+                                            <div>Status: </div>
+                                            <div>
+                                                {product.countInStock > 0 ? (
+                                                    <span className="success">In Stock</span>
+                                                ) : (
+                                                    <span className="danger ">Unavailable</span>
+                                                )}
+                                            </div>
+                                        </div>
+                                    </li>
+                                    {product.countInStock > 0 && (
+                                        <>
+                                            <li>
+                                                <div className="row">
+                                                    <div>Quantity</div>
+                                                    <div>
+                                                        <select value={qty} onChange={(e) => setQty(e.target.value)}>
+                                                            {[...Array(product.countInStock).keys()].map((x) => (
+                                                                <option key={x + 1} value={x + 1}>
+                                                                    {x + 1}
+                                                                </option>
+                                                            ))}
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <button onClick={addToCartHandler} className="primary block">
+                                                    Add to cart
+                                                </button>
+                                            </li>
+                                        </>
+                                    )}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h2 id="reviews">Reviews</h2>
+                        {product.reviews.length === 0 && <MessageBox>There is no review</MessageBox>}
+                        <ul>
+                            {product.reviews.map((review) => (
+                                <li key={review._id}>
+                                    <strong>{review.name}</strong>
+                                    <Rating rating={review.rating} caption=" " />
+                                    <p>{review.createdAt.substring(0, 10)}</p>
+                                    <p>{review.comment}</p>
+                                </li>
+                            ))}
+                            <li>
+                                {userInfo ? (
+                                    <form className="form" onSubmit={submitHandler}>
+                                        <div>
+                                            <h2>Write a customer review</h2>
+                                        </div>
+                                        <div>
+                                            <label htmlFor="rating">Rating</label>
+                                            <select
+                                                id="rating"
+                                                value={rating}
+                                                onChange={(e) => setRating(e.target.value)}
+                                            >
+                                                <option value="">Select...</option>
+                                                <option value="1">1- Poor</option>
+                                                <option value="2">2- Fair</option>
+                                                <option value="3">3- Good</option>
+                                                <option value="4">4- Very good</option>
+                                                <option value="5">5- Excelent</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label htmlFor="comment">Comment</label>
+                                            <textarea
+                                                id="comment"
+                                                value={comment}
+                                                onChange={(e) => setComment(e.target.value)}
+                                            />
+                                        </div>
+                                        <div>
+                                            <label />
+                                            <button className="primary" type="submit">
+                                                Submit
+                                            </button>
+                                        </div>
+                                        <div>
+                                            {loadingReviewCreate && <Loading />}
+                                            {errorReviewCreate && (
+                                                <MessageBox variant="danger">{errorReviewCreate}</MessageBox>
+                                            )}
+                                        </div>
+                                    </form>
+                                ) : (
+                                    <MessageBox>
+                                        Please <Link to="/signin">Sign In</Link> to write a review
+                                    </MessageBox>
+                                )}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            )}
+        </div>
+    );
+}
+export default ProductPage;
