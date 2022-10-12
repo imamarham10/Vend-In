@@ -67,7 +67,8 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 
 ### `npm run build` fails to minify
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/doc![WhatsApp Image 2022-10-12 at 9 55 48 PM](https://user-images.githubusercontent.com/68807470/195398940-e07f6fa2-f586-4b9b-aacd-4c40208cfcb9.jpeg)
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+![WhatsApp Image 2022-10-12 at 9 55 48 PM](https://user-images.githubusercontent.com/68807470/195398940-e07f6fa2-f586-4b9b-aacd-4c40208cfcb9.jpeg)
 ![WhatsApp Image 2022-10-12 at 9 56 17 PM](https://user-images.githubusercontent.com/68807470/195398941-65e9cae2-5e1d-4d8c-96f0-59798161f541.jpeg)
 ![WhatsApp Image 2022-10-12 at 9 56 42 PM](https://user-images.githubusercontent.com/68807470/195398947-9bb763bf-bac7-4673-a0e1-86ebd43b3023.jpeg)
 ![WhatsApp Image 2022-10-12 at 9 57 10 PM](https://user-images.githubusercontent.com/68807470/195398952-cc99c44a-8919-4a4b-a05f-b0ff0c7a05e2.jpeg)
@@ -79,4 +80,4 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 ![WhatsApp Image 2022-10-12 at 10 01 03 PM](https://user-images.githubusercontent.com/68807470/195398969-7040cf88-2b71-431a-9e98-3cc27e8a3db4.jpeg)
 ![WhatsApp Image 2022-10-12 at 10 01 23 PM](https://user-images.githubusercontent.com/68807470/195398971-947078e6-97f0-4c66-b562-ca1f0a66f504.jpeg)
 ![WhatsApp Image 2022-10-12 at 10 01 39 PM](https://user-images.githubusercontent.com/68807470/195398975-5f1433c5-b20f-4144-a59d-c5a1eb4551f5.jpeg)
-s/troubleshooting#npm-run-build-fails-to-minify)
+
